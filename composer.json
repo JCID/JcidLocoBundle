@@ -12,7 +12,7 @@
 			"Jcid\\Bundle\\JcidLocoBundle": ""
 		}
 	},
-	"target-dir": "Jcid/Bundle/JcidLocoBundle",
+	"target-dir": "Jcid/Bundle/LocoBundle",
 	"extra": {
 		"branch-alias": {
 			"dev-master": "2.3-dev"
