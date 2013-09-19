@@ -46,3 +46,9 @@ jcid_loco:
         -     messages
         -     validators
 ```
+
+After that you could download your translations with the Symfony2 command
+
+```
+php app/console translation:loco:download
+```
