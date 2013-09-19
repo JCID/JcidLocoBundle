@@ -27,6 +27,7 @@ public function registerBundles()
         new Jcid\Bundle\LocoBundle\JcidLocoBundle(),
     );
 }
+```
 
 Usage
 -----
