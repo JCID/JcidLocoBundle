@@ -20,9 +20,7 @@ class JcidLocoExtension extends Extension
 		$configuration = $this->getConfiguration($configs, $container);
 		$config = $this->processConfiguration($configuration, $configs);
 
-		foreach ($config as $key => $value) {
-			$container->setParameter("jcid_loco.configuration.".$key, $value);
-		}
+		$container->setParameter("jcid_loco.configurations", $config);
 
 		$loader = new XmlFileLoader($container, new FileLocator(__DIR__."/../Resources/config"));
 		$loader->load("services.xml");

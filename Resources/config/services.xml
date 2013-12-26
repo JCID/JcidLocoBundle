@@ -14,10 +14,7 @@
 	<services>
 
 		<service id="jcid_loco.downloader" class="%jcid_loco.downloader.class%">
-			<argument>%jcid_loco.configuration.locales%</argument>
-			<argument>%jcid_loco.configuration.domains%</argument>
-			<argument>%jcid_loco.configuration.target%</argument>
-			<argument>%jcid_loco.configuration.key%</argument>
+			<argument>%jcid_loco.configurations%</argument>
 		</service>
 
 		<service id="jcid_loco.translation.phps" class="%jcid_loco.translation.phps.class%">

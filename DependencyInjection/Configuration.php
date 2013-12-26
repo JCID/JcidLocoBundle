@@ -21,33 +21,60 @@ class Configuration implements ConfigurationInterface
 		$rootNode = $treeBuilder->root("jcid_loco");
 
 		$treeBuilder->root("jcid_loco")
-			->children()
 
-				// Config the locales to download
-				->arrayNode("locales")
-					->isRequired()
-					->requiresAtLeastOneElement()
-					->useAttributeAsKey("name")
-					->prototype("scalar")->end()
+			// Verwerken opgegeven config
+			->beforeNormalization()
+
+				// Key is op root niveau ook mogelijk
+				->ifTrue(function ($v) {	return is_array($v) && array_key_exists("key", $v); })
+				->then(function ($v) {
+					// Key opslaan
+					$key = $v["key"];
+					unset($v["key"]);
+
+					// Key op array niveau plaatsen
+					foreach ($v as $code => $config) {
+						$v[$code]["key"] = $key;
+					}
+					return $v;
+				})
+
+				// Mogelijk maken om waardes op hoogste niveau op te geven als dit wenselijk is
+				->ifTrue(function ($v) {	return is_array($v) && array_key_exists("locales", $v); })
+				->then(function ($v) {		return array("default" => $v); })
+
+			->end()
+
+			// Minimaal een element nodig
+			->requiresAtLeastOneElement()
+			->useAttributeAsKey("name")
+			->prototype("array")
+				->addDefaultsIfNotSet()
+				->children()
+
+					// Config the locales to download
+					->arrayNode("locales")
+						->isRequired()
+						->requiresAtLeastOneElement()
+						->useAttributeAsKey("name")
+						->prototype("scalar")->end()
+					->end()
+
+					// Config the locales to download
+					->arrayNode("domains")
+						->isRequired()
+						->requiresAtLeastOneElement()
+						->prototype("scalar")->end()
+					->end()
+
+					// Extra params
+					->scalarNode("key")				->isRequired()->end()
+					->scalarNode("target")			->defaultValue("%kernel.root_dir%/Resources/translations")->end()
+					->scalarNode("extension")		->defaultValue("phps")->end()
+					->scalarNode("format")			->defaultValue("symfony")->end()
+					->scalarNode("index")			->defaultValue("id")->end()
+
 				->end()
-
-				// Config the locales to download
-				->arrayNode("domains")
-					->isRequired()
-					->requiresAtLeastOneElement()
-					->prototype("scalar")->end()
-				->end()
-
-				// Target dir
-				->scalarNode("target")
-					->defaultValue("%kernel.root_dir%/Resources/translations")
-				->end()
-
-				// API Key
-				->scalarNode("key")
-					->isRequired()
-				->end()
-
 			->end()
 		->end();
 

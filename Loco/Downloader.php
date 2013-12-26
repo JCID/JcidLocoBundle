@@ -6,28 +6,40 @@ use Guzzle\Http\Client;
 
 class Downloader
 {
-	private $locales;
-	private $domains;
-	private $target;
-	private $client;
+	private $config;
 
-	public function __construct($locales, $domains, $target, $key)
+	public function __construct($config)
 	{
-		$this->locales	= $locales;
-		$this->domains	= $domains;
-		$this->target	= $target;
-
+		$this->config	= $config;
 		$this->client	= new Client("https://localise.biz/api/");
-		$this->client->setDefaultOption("query/key", $key);
 	}
 
 	public function download()
 	{
-		foreach ($this->locales as $localeKey => $localeValue) {
-			foreach ($this->domains as $domain) {
-				$response	= $this->client->get(sprintf("export/locale/%s.phps?format=symfony&index=id&filter=%s", $localeValue, $domain), array(), array(
-					"save_to"		=> sprintf("%s/%s.%s.phps", $this->target, $domain, $localeKey),
-				))->send();
+		foreach ($this->config as $name => $config) {
+			foreach ($config["locales"] as $localeKey => $localeValue) {
+				foreach ($config["domains"] as $domain) {
+
+					// Dir maken als deze niet bestaat
+					if (!is_dir($config["target"])) {
+						mkdir($config["target"], 0777, true);
+					}
+
+					// Basis query
+					$query = array(
+						"key"		=> $config["key"],
+						"format"	=> $config["format"],
+						"index"		=> $config["index"],
+						"filter"	=> $domain,
+					);
+
+					// Build url
+					$url		= sprintf("export/locale/%s.%s?%s", $localeValue, $config["extension"], http_build_query($query));
+					$savePath	= sprintf("%s/%s.%s.%s", $config["target"], $domain, $localeKey, $config["extension"]);
+
+					// Downloaden
+					$response	= $this->client->get($url, array(), array( "save_to" => $savePath))->send();
+				}
 			}
 		}
 	}
