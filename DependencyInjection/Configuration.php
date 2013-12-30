@@ -25,24 +25,28 @@ class Configuration implements ConfigurationInterface
 			// Verwerken opgegeven config
 			->beforeNormalization()
 
-				// Key is op root niveau ook mogelijk
-				->ifTrue(function ($v) {	return is_array($v) && array_key_exists("key", $v); })
-				->then(function ($v) {
-					// Key opslaan
-					$key = $v["key"];
-					unset($v["key"]);
+				// Mogelijk maken om waardes op hoogste niveau op te geven als dit wenselijk is
+				->ifTrue(function ($v) {	return is_array($v) && (array_key_exists("locales", $v) || array_key_exists("key", $v)); })
+				->then(function ($v) {		 
 
-					// Key op array niveau plaatsen
-					foreach ($v as $code => $config) {
-						$v[$code]["key"] = $key;
+					// Converten naar sub niveau waar nodig
+					if (array_key_exists("locales", $v)) {
+						$v = array("default" => $v);
 					}
+
+					// Als key op top nivue zit verplaatsen naar sub niveau
+					if (array_key_exists("key", $v)) {
+						$key = $v["key"];
+						unset($v["key"]);
+
+						// Key op array niveau plaatsen
+						foreach ($v as $code => $config) {
+							$v[$code]["key"] = $key;
+						}
+					}
+
 					return $v;
 				})
-
-				// Mogelijk maken om waardes op hoogste niveau op te geven als dit wenselijk is
-				->ifTrue(function ($v) {	return is_array($v) && array_key_exists("locales", $v); })
-				->then(function ($v) {		return array("default" => $v); })
-
 			->end()
 
 			// Minimaal een element nodig

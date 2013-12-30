@@ -3,6 +3,7 @@
 namespace Jcid\Bundle\LocoBundle\Loco;
 
 use Guzzle\Http\Client;
+use Guzzle\Batch\BatchBuilder;
 
 class Downloader
 {
@@ -16,6 +17,13 @@ class Downloader
 
 	public function download()
 	{
+		// Batch downloader
+		$batch = BatchBuilder::factory()
+					->transferRequests(10)
+					->autoFlushAt(10)
+					->build();	
+
+		// Doorlopen bestanden
 		foreach ($this->config as $name => $config) {
 			foreach ($config["locales"] as $localeKey => $localeValue) {
 				foreach ($config["domains"] as $domain) {
@@ -38,9 +46,12 @@ class Downloader
 					$savePath	= sprintf("%s/%s.%s.%s", $config["target"], $domain, $localeKey, $config["extension"]);
 
 					// Downloaden
-					$response	= $this->client->get($url, array(), array( "save_to" => $savePath))->send();
+					$batch->add($this->client->get($url, array(), array( "save_to" => $savePath)));
 				}
 			}
 		}
+
+		// Alles binnen halen
+		$batch->flush();
 	}
 }
