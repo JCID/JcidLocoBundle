@@ -25,7 +25,7 @@ class Configuration implements ConfigurationInterface
 
 				// Mogelijk maken om waardes op hoogste niveau op te geven als dit wenselijk is
 				->ifTrue(function ($v) {	return is_array($v) && (array_key_exists("locales", $v) || array_key_exists("key", $v)); })
-				->then(function ($v) {		 
+				->then(function ($v) {
 
 					// Converten naar sub niveau waar nodig
 					if (array_key_exists("locales", $v)) {

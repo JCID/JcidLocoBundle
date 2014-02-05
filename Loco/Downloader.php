@@ -27,7 +27,7 @@ class Downloader
 		$batch = BatchBuilder::factory()
 					->transferRequests(10)
 					->autoFlushAt(10)
-					->build();	
+					->build();
 
 		// Doorlopen bestanden
 		foreach ($this->config as $name => $config) {
