@@ -8,6 +8,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class DownloadCommand extends ContainerAwareCommand
 {
+	/**
+	 *
+	 */
 	protected function configure()
 	{
 		$this

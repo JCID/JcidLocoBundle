@@ -9,12 +9,18 @@ class Downloader
 {
 	private $config;
 
-	public function __construct($config)
+	/**
+	 * @param array $config
+	 */
+	public function __construct(array $config)
 	{
 		$this->config	= $config;
 		$this->client	= new Client("https://localise.biz/api/");
 	}
 
+	/**
+	 * Downloaden loco files
+	 */
 	public function download()
 	{
 		// Batch downloader
