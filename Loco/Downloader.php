@@ -30,7 +30,7 @@ class Downloader
 					->build();
 
 		// Doorlopen bestanden
-		foreach ($this->config as $name => $config) {
+		foreach ($this->config as $config) {
 			foreach ($config["locales"] as $localeKey => $localeValue) {
 				foreach ($config["domains"] as $domain) {
 
