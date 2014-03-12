@@ -10,10 +10,7 @@ use Symfony\Component\Config\FileLocator;
 class JcidLocoExtension extends Extension
 {
 	/**
-	 * Handles the knp_menu configuration.
-	 *
-	 * @param array $configs The configurations being loaded
-	 * @param ContainerBuilder $container
+	 * {@inheritDoc}
 	 */
 	public function load(array $configs, ContainerBuilder $container)
 	{
