@@ -8,21 +8,21 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class DownloadCommand extends ContainerAwareCommand
 {
-	/**
-	 *
-	 */
-	protected function configure()
-	{
-		$this
-			->setName("translation:loco:download")
-			->setDescription("Download laatste loco translation files");
-	}
+    /**
+     *
+     */
+    protected function configure()
+    {
+        $this
+            ->setName('translation:loco:download')
+            ->setDescription('Download laatste loco translation files');
+    }
 
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$this->getContainer()->get("jcid_loco.downloader")->download();
-	}
+    /**
+     * {@inheritdoc}
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $this->getContainer()->get('jcid_loco.downloader')->download($output);
+    }
 }

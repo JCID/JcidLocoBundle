@@ -5,22 +5,16 @@
 	xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
 	<parameters>
-
 		<parameter key="jcid_loco.downloader.class">Jcid\Bundle\LocoBundle\Loco\Downloader</parameter>
 		<parameter key="jcid_loco.translation.phps.class">Jcid\Bundle\LocoBundle\Translation\PhpsFileLoader</parameter>
-
 	</parameters>
 
 	<services>
-
 		<service id="jcid_loco.downloader" class="%jcid_loco.downloader.class%">
 			<argument>%jcid_loco.configurations%</argument>
 		</service>
-
 		<service id="jcid_loco.translation.phps" class="%jcid_loco.translation.phps.class%">
 			<tag name="translation.loader" alias="phps" />
 		</service>
-
 	</services>
-
 </container>

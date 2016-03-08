@@ -5,17 +5,12 @@
 	"type":			"symfony-bundle",
 	"require": {
 		"php":	">=5.3.0",
-		"guzzle/guzzle": "~3.7"
+		"guzzlehttp/guzzle": "~6.0"
 	},
 	"autoload": {
 		"psr-0": { 
 			"Jcid\\Bundle\\LocoBundle": ""
 		}
 	},
-	"target-dir": "Jcid/Bundle/LocoBundle",
-	"extra": {
-		"branch-alias": {
-			"dev-master": "2.3-dev"
-		}
-	}
+	"target-dir": "Jcid/Bundle/LocoBundle"
 }
