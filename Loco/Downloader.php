@@ -3,7 +3,6 @@
 namespace Jcid\Bundle\LocoBundle\Loco;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\Request;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class Downloader
@@ -24,7 +23,7 @@ class Downloader
     public function __construct(array $config)
     {
         $this->config    = $config;
-        $this->client    = new Client(['base_uri' => 'https://localise.biz/api/']);
+        $this->client    = new Client();
     }
 
     /**
@@ -54,14 +53,13 @@ class Downloader
                     );
 
                     // Build url
-                    $url         = sprintf('export/locale/%s.%s?%s', $localeValue, $config['extension'], http_build_query($query));
+                    $url         = sprintf('https://localise.biz/api/export/locale/%s.%s?%s', $localeValue, $config['extension'], http_build_query($query));
                     $savePath    = sprintf('%s/%s.%s.%s', $config['target'], $domain, $localeKey, $config['extension']);
 
                     // Downloaden
                     if ($output) {
                         $output->writeln('<info>[file+]</info> ' . $savePath);
                     }
-
                     $response = (string) $this->client->get($url)->getBody();
 
                     // Conversie
