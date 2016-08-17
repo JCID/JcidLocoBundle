@@ -4,14 +4,10 @@ README
 Installation
 ------------
 
-Add bundle in your composer.json:
+Install `JcidLocoBundle` using Composer.
 
-```js
-{
-    "require": {
-        "jcid/loco-bundle": "dev-master"
-    }
-}
+```
+$ composer require jcid/loco-bundle
 ```
 
 Enable the bundle in the kernel:
