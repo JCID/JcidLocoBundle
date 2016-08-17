@@ -67,6 +67,10 @@ class Downloader
                         $response = json_encode(json_decode($response), JSON_PRETTY_PRINT) . "\r\n";
                     }
 
+                    // Remove Localise 'exported' items
+                    $response = preg_replace('/ \* Exported by: (.*)\n/', '', $response);
+                    $response = preg_replace('/ \* Exported at: (.*)\n/', '', $response);
+
                     // Opslaan in map
                     file_put_contents($savePath, $response);
                 }
