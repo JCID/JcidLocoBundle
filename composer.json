@@ -1,6 +1,6 @@
 {
     "name": "jcid/loco-bundle",
-    "description": "Bundle that downlods the translation files from the localise.biz api and places them in the right folder.",
+    "description": "A Symfony bundle that downloads the translation files from the localise.biz API and places them in the right folder.",
     "license": "MIT",
     "type": "symfony-bundle",
     "require": {
