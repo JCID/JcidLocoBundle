@@ -1,3 +1,5 @@
+[![SymfonyInsight](https://insight.symfony.com/projects/fab1a89a-91e1-4fd9-941f-7b86d8a98349/mini.svg)](https://insight.symfony.com/projects/fab1a89a-91e1-4fd9-941f-7b86d8a98349)
+
 README
 ======
 
